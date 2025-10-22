@@ -6,7 +6,7 @@ import RecipesList from "./screens/RecipesList";
 import AddRecipe from "./screens/AddRecipe";
 import { RootStackParamList } from "./types/navigation"; // Import navigation param list
 
-const Stack = createStackNavigator<RootStackParamList>();  // Type the stack navigator
+const Stack = createStackNavigator<RootStackParamList>(); // Type the stack navigator
 
 export default function App() {
   return (
