@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useCallback, useMemo } from "react";
 import type { RecipeData } from "../types/recipeData";
 
 export function useRecipes() {
@@ -12,6 +12,10 @@ export function useRecipes() {
     setRecipes([]);
   }, []);
 
+  const removeRecipeAtIndex = useCallback((index: number) => {
+    setRecipes((current) => current.filter((_, i) => i !== index));
+  }, []);
+
   const totalRecipes = useMemo(() => recipes.length, [recipes]);
 
   return {
@@ -19,5 +23,6 @@ export function useRecipes() {
     totalRecipes,
     addRecipe,
     clearRecipes,
+    removeRecipeAtIndex,
   };
 }

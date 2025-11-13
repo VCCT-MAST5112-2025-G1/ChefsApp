@@ -10,11 +10,29 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import type { StackNavigationProp } from "@react-navigation/stack";
 import type { RootStackParamList } from "../types/navigation";
+import { useMenuItemsContext } from "../hooks/MenuItemContext";
 
 type HomeNav = StackNavigationProp<RootStackParamList, "Home">;
 
 export default function HomeScreen() {
   const navigation = useNavigation<HomeNav>();
+  const { recipes } = useMenuItemsContext();
+
+  const getAverageFor = (course: string) => {
+    const filtered = recipes.filter((r: any) => r.courseType === course);
+
+    if (filtered.length === 0) {
+      return "R 0.00";
+    }
+
+    const sum = filtered.reduce((acc: number, r: any) => {
+      const priceNum = parseFloat(r.price || "0");
+      return acc + (isNaN(priceNum) ? 0 : priceNum);
+    }, 0);
+
+    const avg = sum / filtered.length;
+    return "R " + avg.toFixed(2);
+  };
 
   return (
     <ImageBackground
@@ -94,7 +112,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     width: 170,
     elevation: 4,
-    marginLeft:-5,
+    marginLeft: -5,
     marginRight: 8,
   },
 
@@ -103,5 +121,34 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
+  },
+
+  statsCard: {
+    backgroundColor: "rgba(0, 0, 0, 0.4)",
+    padding: 16,
+    borderRadius: 14,
+    marginTop: 10,
+    width: "85%",
+  },
+  statsTitle: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "700",
+    marginBottom: 8,
+    textAlign: "center",
+  },
+  statsRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginVertical: 2,
+  },
+  statsLabel: {
+    color: "white",
+    fontSize: 14,
+  },
+  statsValue: {
+    color: "white",
+    fontSize: 14,
+    fontWeight: "700",
   },
 });
