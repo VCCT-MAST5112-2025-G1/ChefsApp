@@ -18,6 +18,37 @@ import type { RootStackParamList } from "../types/navigation";
 
 type AddRecipeNav = StackNavigationProp<RootStackParamList, "AddRecipe">;
 
+function HomeButton() {
+  const navigation = useNavigation<any>();
+
+  return (
+    <TouchableOpacity
+      style={homeBtnStyles.button}
+      onPress={() => navigation.navigate("Home")}
+    >
+      <Text style={homeBtnStyles.text}>Home</Text>
+    </TouchableOpacity>
+  );
+}
+
+const homeBtnStyles = StyleSheet.create({
+  button: {
+    position: "absolute",
+    bottom: 60,
+    left: 150,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    backgroundColor: "rgba(255, 112, 67, 0.9)",
+    borderRadius: 8,
+    zIndex: 999,
+  },
+  text: {
+    color: "white",
+    fontSize: 15,
+    fontWeight: "600",
+  },
+});
+
 export default function AddRecipe() {
   const navigation = useNavigation<AddRecipeNav>();
   const { addRecipe } = useMenuItemsContext();
@@ -45,6 +76,7 @@ export default function AddRecipe() {
       style={styles.background}
       resizeMode="cover"
     >
+      <HomeButton />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}

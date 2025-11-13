@@ -9,8 +9,40 @@ import {
 } from "react-native";
 import { useMenuItemsContext } from "../hooks/MenuItemContext";
 import type { StoredRecipe } from "../hooks/useRecipe";
+import { useNavigation } from "@react-navigation/native";
 
 type FilterType = "All" | "Starter" | "Main" | "Dessert";
+
+function HomeButton() {
+  const navigation = useNavigation<any>();
+
+  return (
+    <TouchableOpacity
+      style={homeBtnStyles.button}
+      onPress={() => navigation.navigate("Home")}
+    >
+      <Text style={homeBtnStyles.text}>Home</Text>
+    </TouchableOpacity>
+  );
+}
+
+const homeBtnStyles = StyleSheet.create({
+  button: {
+    position: "absolute",
+    bottom: 60,
+    left: 20,
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    backgroundColor: "rgba(255, 112, 67, 0.9)",
+    borderRadius: 8,
+    zIndex: 999,
+  },
+  text: {
+    color: "white",
+    fontSize: 15,
+    fontWeight: "600",
+  },
+});
 
 export default function RecipesList() {
   const { recipes, clearRecipes, removeRecipe } = useMenuItemsContext();
@@ -35,6 +67,8 @@ export default function RecipesList() {
       resizeMode="cover"
       blurRadius={1}
     >
+      <HomeButton />
+
       <View style={styles.container}>
         <Text style={styles.title}>Browse Recipes</Text>
 
@@ -235,7 +269,7 @@ const styles = StyleSheet.create({
   },
   clearButton: {
     position: "absolute",
-    bottom: 20,
+    bottom: 60,
     alignSelf: "center",
     backgroundColor: "rgba(255, 64, 64, 0.9)",
     paddingVertical: 12,
