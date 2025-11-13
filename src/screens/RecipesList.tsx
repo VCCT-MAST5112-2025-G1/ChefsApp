@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 
 type FilterType = "All" | "Starter" | "Main" | "Dessert";
 
+// Home Button 
 function HomeButton() {
   const navigation = useNavigation<any>();
 
@@ -61,6 +62,7 @@ export default function RecipesList() {
   };
 
   return (
+    // Background image
     <ImageBackground
       source={require("../../assets/images/home.png")}
       style={styles.background}
@@ -102,7 +104,7 @@ export default function RecipesList() {
           )}
         </View>
 
-        {hasRecipes ? (
+        {hasRecipes ? ( // Recipe list
           <ScrollView contentContainerStyle={styles.listContainer}>
             {filteredRecipes.map((item: StoredRecipe) => (
               <View key={item.id} style={styles.card}>
