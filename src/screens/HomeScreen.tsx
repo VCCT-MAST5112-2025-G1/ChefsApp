@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import type { StackNavigationProp } from "@react-navigation/stack";
 import type { RootStackParamList } from "../types/navigation";
@@ -11,21 +11,29 @@ export default function HomeScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Chef's App</Text>
+      <Image
+        source={require("../../assets/images/icon.png")}
+        style={styles.logo}
+        resizeMode="contain"
+      />
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate("RecipesList")}
-      >
-        <Text style={styles.buttonText}>Browse Recipes</Text>
-      </TouchableOpacity>
+      <Text style={styles.title}>Chef’s App</Text>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate("AddRecipe")}
-      >
-        <Text style={styles.buttonText}>Add a Recipe</Text>
-      </TouchableOpacity>
+      <View style={styles.bottomContainer}>
+        <TouchableOpacity
+          style={[styles.button, { alignSelf: "flex-start" }]}
+          onPress={() => navigation.navigate("RecipesList")}
+        >
+          <Text style={styles.buttonText}>Browse Recipes</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={[styles.button, { alignSelf: "flex-end" }]}
+          onPress={() => navigation.navigate("AddRecipe")}
+        >
+          <Text style={styles.buttonText}>Add a Recipe</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -33,27 +41,45 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     backgroundColor: "#fffaf0",
-    padding: 20,
+    alignItems: "center",
+    paddingTop: 80,
   },
+
+  logo: {
+    width: 200,
+    height: 200,
+    marginBottom: 20,
+  },
+
   title: {
     fontSize: 28,
-    marginBottom: 40,
     fontWeight: "bold",
+    marginBottom: 40,
   },
+
+  bottomContainer: {
+    position: "absolute",
+    bottom: 40,
+    width: "100%",
+    paddingHorizontal: 30,
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
   button: {
     backgroundColor: "#ff7043",
-    paddingVertical: 15,
-    paddingHorizontal: 40,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
     borderRadius: 10,
-    marginVertical: 10,
     elevation: 3,
+    width: 150,
   },
+
   buttonText: {
     color: "white",
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "600",
+    textAlign: "center",
   },
 });
