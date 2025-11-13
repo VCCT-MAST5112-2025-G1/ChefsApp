@@ -19,6 +19,24 @@ The Chef’s App is designed to allow users to easily:
 - Background images
 - Scrollable recipe cards
 
+## UI / Styling
+
+- Consistent theme across screens
+- Background images
+- Rounded buttons
+- Elevated white cards for recipes
+- Clean layout compatible with all devices
+
+## Running the APP
+
+- npm install
+- npx expo start
+
+OR
+## Running on Device
+
+Scan the QR code with Expo Go 
+
 # ChangeLog
 
 - Fixed navigation by using hooks instead.
