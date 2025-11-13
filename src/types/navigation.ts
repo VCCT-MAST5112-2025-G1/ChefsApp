@@ -1,5 +1,5 @@
 export type RootStackParamList = {
-  Home: undefined;
-  RecipesList: undefined;
-  AddRecipe: undefined;
+  Home: undefined; // home screen
+  RecipesList: undefined; // recipes list screen
+  AddRecipe: undefined; // add recipe screen
 };
