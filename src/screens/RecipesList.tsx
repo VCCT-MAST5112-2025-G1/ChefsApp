@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -8,13 +8,23 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useMenuItemsContext } from "../hooks/MenuItemContext";
+import type { StoredRecipe } from "../hooks/useRecipe";
+
+type FilterType = "All" | "Starter" | "Main" | "Dessert";
 
 export default function RecipesList() {
-  const { recipes, clearRecipes } = useMenuItemsContext();
+  const { recipes, clearRecipes, removeRecipe } = useMenuItemsContext();
 
-  const hasRecipes = recipes && recipes.length > 0;
+  const [filter, setFilter] = useState<FilterType>("All");
 
-  const handleClear = () => {
+  const filteredRecipes =
+    filter === "All"
+      ? recipes
+      : recipes.filter((r: StoredRecipe) => r.courseType === filter);
+
+  const hasRecipes = filteredRecipes && filteredRecipes.length > 0;
+
+  const handleClearAll = () => {
     clearRecipes();
   };
 
@@ -28,10 +38,40 @@ export default function RecipesList() {
       <View style={styles.container}>
         <Text style={styles.title}>Browse Recipes</Text>
 
+        <View style={styles.filterRow}>
+          {(["All", "Starter", "Main", "Dessert"] as FilterType[]).map(
+            (item) => (
+              <TouchableOpacity
+                key={item}
+                style={[
+                  styles.filterButton,
+                  filter === item && styles.filterButtonActive,
+                ]}
+                onPress={() => setFilter(item)}
+              >
+                <Text
+                  style={[
+                    styles.filterText,
+                    filter === item && styles.filterTextActive,
+                  ]}
+                >
+                  {item === "All"
+                    ? "All"
+                    : item === "Starter"
+                    ? "Starters"
+                    : item === "Main"
+                    ? "Mains"
+                    : "Desserts"}
+                </Text>
+              </TouchableOpacity>
+            )
+          )}
+        </View>
+
         {hasRecipes ? (
           <ScrollView contentContainerStyle={styles.listContainer}>
-            {recipes.map((item: any, index: number) => (
-              <View key={item.id ?? index.toString()} style={styles.card}>
+            {filteredRecipes.map((item: StoredRecipe) => (
+              <View key={item.id} style={styles.card}>
                 <View style={styles.cardHeader}>
                   <Text style={styles.dishName}>
                     {item.dishName || "Untitled dish"}
@@ -49,6 +89,13 @@ export default function RecipesList() {
                 {item.price ? (
                   <Text style={styles.price}>R {item.price}</Text>
                 ) : null}
+
+                <TouchableOpacity
+                  style={styles.removeButton}
+                  onPress={() => removeRecipe(item.id)}
+                >
+                  <Text style={styles.removeButtonText}>Remove</Text>
+                </TouchableOpacity>
               </View>
             ))}
           </ScrollView>
@@ -60,8 +107,8 @@ export default function RecipesList() {
           </View>
         )}
 
-        {hasRecipes && (
-          <TouchableOpacity style={styles.clearButton} onPress={handleClear}>
+        {recipes.length > 0 && (
+          <TouchableOpacity style={styles.clearButton} onPress={handleClearAll}>
             <Text style={styles.clearButtonText}>Clear Recipes</Text>
           </TouchableOpacity>
         )}
@@ -85,10 +132,36 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
     textAlign: "center",
-    marginBottom: 16,
+    marginBottom: 12,
     textShadowColor: "rgba(0,0,0,0.4)",
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 4,
+  },
+  filterRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 12,
+  },
+  filterButton: {
+    flex: 1,
+    paddingVertical: 8,
+    marginHorizontal: 3,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.7)",
+    backgroundColor: "rgba(0,0,0,0.2)",
+  },
+  filterButtonActive: {
+    backgroundColor: "rgba(255, 112, 67, 0.9)",
+  },
+  filterText: {
+    color: "white",
+    fontSize: 13,
+    textAlign: "center",
+    fontWeight: "500",
+  },
+  filterTextActive: {
+    fontWeight: "700",
   },
   listContainer: {
     paddingBottom: 20,
@@ -132,6 +205,19 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "#333",
     marginTop: 4,
+  },
+  removeButton: {
+    alignSelf: "flex-end",
+    marginTop: 8,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    borderRadius: 999,
+    backgroundColor: "rgba(255, 64, 64, 0.12)",
+  },
+  removeButtonText: {
+    color: "#d32f2f",
+    fontSize: 13,
+    fontWeight: "600",
   },
   emptyContainer: {
     flex: 1,
