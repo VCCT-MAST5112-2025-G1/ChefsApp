@@ -50,3 +50,7 @@ Scan the QR code with Expo Go
 ## Video
 
 https://youtube.com/shorts/dmK1Ilf42Dc?feature=share
+
+## Repo Link
+
+https://github.com/VCCT-MAST5112-2025-G1/ChefsApp
