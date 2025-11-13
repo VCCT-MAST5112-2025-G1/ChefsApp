@@ -5,14 +5,18 @@ import {
   StyleSheet,
   ImageBackground,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import { useMenuItemsContext } from "../hooks/MenuItemContext";
 
 export default function RecipesList() {
-  // This comes from useRecipes() via MenuItemsProvider
-  const { recipes } = useMenuItemsContext();
+  const { recipes, clearRecipes } = useMenuItemsContext();
 
   const hasRecipes = recipes && recipes.length > 0;
+
+  const handleClear = () => {
+    clearRecipes();
+  };
 
   return (
     <ImageBackground
@@ -21,7 +25,7 @@ export default function RecipesList() {
       resizeMode="cover"
       blurRadius={1}
     >
-      <View style={styles.overlay}>
+      <View style={styles.container}>
         <Text style={styles.title}>Browse Recipes</Text>
 
         {hasRecipes ? (
@@ -55,6 +59,12 @@ export default function RecipesList() {
             </Text>
           </View>
         )}
+
+        {hasRecipes && (
+          <TouchableOpacity style={styles.clearButton} onPress={handleClear}>
+            <Text style={styles.clearButtonText}>Clear Recipes</Text>
+          </TouchableOpacity>
+        )}
       </View>
     </ImageBackground>
   );
@@ -64,25 +74,27 @@ const styles = StyleSheet.create({
   background: {
     flex: 1,
   },
-  overlay: {
+  container: {
     flex: 1,
-    backgroundColor: "rgba(255,255,255,0.9)",
     paddingHorizontal: 20,
     paddingTop: 20,
-    paddingBottom: 10,
+    paddingBottom: 80,
   },
   title: {
     fontSize: 26,
     fontWeight: "bold",
-    color: "#333",
+    color: "#fff",
     textAlign: "center",
     marginBottom: 16,
+    textShadowColor: "rgba(0,0,0,0.4)",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
   },
   listContainer: {
     paddingBottom: 20,
   },
   card: {
-    backgroundColor: "white",
+    backgroundColor: "rgba(255,255,255,0.95)",
     borderRadius: 16,
     padding: 16,
     marginBottom: 14,
@@ -129,7 +141,25 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     fontSize: 16,
-    color: "#555",
+    color: "#fff",
     textAlign: "center",
+    textShadowColor: "rgba(0,0,0,0.4)",
+    textShadowOffset: { width: 1, height: 1 },
+    textShadowRadius: 4,
+  },
+  clearButton: {
+    position: "absolute",
+    bottom: 20,
+    alignSelf: "center",
+    backgroundColor: "rgba(255, 64, 64, 0.9)",
+    paddingVertical: 12,
+    paddingHorizontal: 30,
+    borderRadius: 999,
+    elevation: 4,
+  },
+  clearButtonText: {
+    color: "white",
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });

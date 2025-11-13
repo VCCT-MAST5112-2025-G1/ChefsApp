@@ -159,13 +159,13 @@ const styles = StyleSheet.create({
   pickerContainer: {
     backgroundColor: "white",
     borderRadius: 10,
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: "#ddd",
-    marginBottom: 14,
+    marginBottom: 24,
     overflow: "hidden",
   },
   picker: {
-    height: 48,
+    height: 50,
     width: "100%",
   },
   button: {
