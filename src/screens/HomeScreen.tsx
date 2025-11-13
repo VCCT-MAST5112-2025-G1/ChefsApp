@@ -91,9 +91,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 112, 67, 0.9)",
     paddingVertical: 14,
     paddingHorizontal: 20,
-    borderRadius: 10,
-    width: 150,
+    borderRadius: 15,
+    width: 170,
     elevation: 4,
+    marginLeft:-5,
+    marginRight: 8,
   },
 
   buttonText: {
