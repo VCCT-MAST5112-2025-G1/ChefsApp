@@ -18,6 +18,7 @@ export default function HomeScreen() {
   const navigation = useNavigation<HomeNav>();
   const { recipes } = useMenuItemsContext();
 
+  // Average calculation
   const getAverageFor = (course: "Starter" | "Main" | "Dessert") => {
     const filtered = recipes.filter((r: any) => r.courseType === course);
 
@@ -34,7 +35,7 @@ export default function HomeScreen() {
     return "R " + avg.toFixed(2);
   };
 
-  return (
+  return ( // background image
     <ImageBackground
       source={require("../../assets/images/home.png")}
       style={styles.background}
@@ -43,14 +44,13 @@ export default function HomeScreen() {
     >
       <View style={styles.container}>
        
-        <Image
+        <Image // logo
           source={require("../../assets/images/icon.png")}
           style={styles.logo}
           resizeMode="contain"
         />
-
         
-        <View style={styles.statsCard}>
+        <View style={styles.statsCard}> 
           <Text style={styles.statsTitle}>Average price per course</Text>
 
           <View style={styles.statsRow}>
@@ -75,7 +75,7 @@ export default function HomeScreen() {
             style={[styles.button, { alignSelf: "flex-start" }]}
             onPress={() => navigation.navigate("RecipesList")}
           >
-            <Text style={styles.buttonText}>Browse Recipes</Text>
+            <Text style={styles.buttonText}>Browse Recipes</Text> 
           </TouchableOpacity>
 
           <TouchableOpacity
