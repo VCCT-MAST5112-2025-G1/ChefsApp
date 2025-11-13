@@ -44,7 +44,6 @@ export default function AddRecipe() {
       source={require("../../assets/images/home.png")}
       style={styles.background}
       resizeMode="cover"
-      blurRadius={1}
     >
       <KeyboardAvoidingView
         style={{ flex: 1 }}
