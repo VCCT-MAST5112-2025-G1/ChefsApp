@@ -46,3 +46,7 @@ Scan the QR code with Expo Go
 - Individual removal of items.
 - Clear recipes button added.
 - Home page on each page.
+
+## Video
+
+https://youtube.com/shorts/dmK1Ilf42Dc?feature=share
