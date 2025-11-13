@@ -18,7 +18,7 @@ import type { RootStackParamList } from "../types/navigation";
 
 type AddRecipeNav = StackNavigationProp<RootStackParamList, "AddRecipe">;
 
-function HomeButton() {
+function HomeButton() { // home button
   const navigation = useNavigation<any>();
 
   return (
@@ -70,7 +70,7 @@ export default function AddRecipe() {
     navigation.navigate("RecipesList");
   };
 
-  return (
+  return ( // background image
     <ImageBackground
       source={require("../../assets/images/home.png")}
       style={styles.background}
@@ -82,11 +82,11 @@ export default function AddRecipe() {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={Platform.OS === "ios" ? 80 : 100}
       >
-        <ScrollView
+        <ScrollView // scrollable view for cards
           contentContainerStyle={styles.scrollContainer}
           keyboardShouldPersistTaps="handled"
         >
-          <View style={styles.card}>
+          <View style={styles.card}> 
             <Text style={styles.title}>Add a New Recipe</Text>
 
             <Text style={styles.label}>Dish Name</Text>
@@ -115,7 +115,7 @@ export default function AddRecipe() {
                 onValueChange={(itemValue) => setCourseType(itemValue)}
                 style={styles.picker}
                 dropdownIconColor="#333"
-              >
+              > 
                 <Picker.Item label="Starter" value="Starter" />
                 <Picker.Item label="Main" value="Main" />
                 <Picker.Item label="Dessert" value="Dessert" />
@@ -124,7 +124,8 @@ export default function AddRecipe() {
               </Picker>
             </View>
 
-            <Text style={styles.label}>Price</Text>
+            
+            <Text style={styles.label}>Price</Text> 
             <TextInput
               style={styles.input}
               placeholder="e.g. 120"
@@ -143,7 +144,7 @@ export default function AddRecipe() {
     </ImageBackground>
   );
 }
-
+ // StyleSheet
 const styles = StyleSheet.create({
   background: {
     flex: 1,
